@@ -66,16 +66,15 @@ public class Map {
 
 			private void doDrawing(Graphics g) {
 				Graphics2D g2d = (Graphics2D)g;
-
-				Dimension size = getSize();
-				Insets insets = getInsets();
-
-				int w = size.width - (Star.starDiameter * 3) - insets.left - insets.right;
-				int h = size.height - (Star.starDiameter * 3) - insets.top - insets.bottom;
-
 				Star star;
 
 				if (starPlacement == null) {
+					Dimension size = getSize();
+					Insets insets = getInsets();
+
+					int w = size.width - (Star.starDiameter * 3) - insets.left - insets.right;
+					int h = size.height - (Star.starDiameter * 3) - insets.top - insets.bottom;
+
 					starPlacement = new Hashtable<String, Star>();
 
 					Iterator<Star> starPlacementIter;
@@ -93,7 +92,7 @@ public class Map {
 						while (starPlacementIter.hasNext()) {
 							existingStar = starPlacementIter.next();
 
-							if (existingStar.colidesWithOtherStar(star)) {
+							if (existingStar.colidesWithOtherObject(star, star.getCollisionDistance())) {
 								placeStar = false;
 								continue;
 							}
@@ -130,7 +129,6 @@ public class Map {
 			}
 
 			boolean leftMouseClick = false;
-			// boolean rightMouseClick = false;
 
 			{
 				addMouseListener(new MouseAdapter() {
@@ -153,33 +151,21 @@ public class Map {
 
 						if (SwingUtilities.isRightMouseButton(e)) {
 							leftMouseClick = false;
-							// rightMouseClick = true;
-
-							// System.out.println("Right mouse clicking: " + e.getX() + ":" + e.getY());
 						} else {
-							// rightMouseClick = false;
 							leftMouseClick = true;
-
-							// System.out.println("mousePressed");
 							pointStart = e.getPoint();
 
 							String start = isNearAnotherPlanet(x, y);
 
 							pointStart.setLocation(Double.parseDouble(start.split(":")[0]), Double.parseDouble(start.split(":")[1]));
-
-							// System.out.println("+++++++++++++++++++");
 						}
 					}
 
 					public void mouseReleased(MouseEvent e) {
 						if (SwingUtilities.isRightMouseButton(e)) {
 							leftMouseClick = false;
-							// rightMouseClick = true;
 						} else {
 							leftMouseClick = false;
-							// rightMouseClick = false;
-
-							// System.out.println("mouseReleased");
 							pointEnd = e.getPoint();
 
 							double x = pointEnd.getX();
@@ -195,7 +181,6 @@ public class Map {
 
 							pointStart = null;
 							pointEnd = null;
-							// System.out.println("+++++++++++++++++++");
 						}
 					}
 				});
@@ -212,14 +197,12 @@ public class Map {
 
 							pointEnd.setLocation(Double.parseDouble(start.split(":")[0]), Double.parseDouble(start.split(":")[1]));
 
-							// System.out.println("+++++++++++++++++++");
 							repaint();
 						}
 					}
 
 					public void mouseDragged(MouseEvent e) {
 						if (leftMouseClick) {
-							// System.out.println("mouseDragged");
 							pointEnd = e.getPoint();
 
 							double x = pointEnd.getX();
@@ -294,7 +277,6 @@ public class Map {
 
 						if (found == false && starPlacement.containsKey(checkPoint)) {
 							star = starPlacement.get(checkPoint);
-							// System.out.println("Found: " + star.getName());
 
 							found = true;
 						}

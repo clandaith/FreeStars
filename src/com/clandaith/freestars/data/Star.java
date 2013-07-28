@@ -13,10 +13,7 @@ import java.awt.Rectangle;
  *
  */
 
-public class Star {
-
-	private Rectangle rectangle;
-
+public class Star extends MapEntity {
 	public static int starDiameter = 14;
 
 	private String name;
@@ -24,8 +21,8 @@ public class Star {
 	private Integer mineDistance = 0;
 
 	public Star(int x, int y) {
-
-		rectangle = new Rectangle(x, y, starDiameter, starDiameter);
+		hitBox = new Rectangle(x, y, starDiameter, starDiameter);
+		this.collisionDistance = 20;
 
 		this.setName(Stars.getStarName());
 	}
@@ -54,38 +51,18 @@ public class Star {
 		this.name = name;
 	}
 
-	public Integer getX() {
-		return rectangle.x;
-	}
-
-	public Integer getY() {
-		return rectangle.y;
-	}
-
 	public String getPosition() {
-		return rectangle.x + ":" + rectangle.y;
+		return hitBox.x + ":" + hitBox.y;
 	}
 
 	public void draw(Graphics g2d) {
 		if (this.hasMines()) {
 			g2d.setColor(Color.blue);
-			g2d.fillOval(rectangle.x - (this.getMineDistance() / 2), rectangle.y - (this.getMineDistance() / 2),
-							this.getMineDistance(), this.getMineDistance());
+			g2d.fillOval(hitBox.x - (this.getMineDistance() / 2), hitBox.y - (this.getMineDistance() / 2), this.getMineDistance(),
+							this.getMineDistance());
 		}
 
 		g2d.setColor(Color.red);
-		g2d.fillOval(rectangle.x - (starDiameter / 2), rectangle.y - (starDiameter / 2), starDiameter, starDiameter);
-	}
-
-	public boolean colidesWithOtherStar(Star otherStar) {
-		Rectangle biggerRectangle = new Rectangle(rectangle.x - 20, rectangle.y - 20, rectangle.height + 20, rectangle.width + 20);
-
-		System.out.println("Are we coliding: " + biggerRectangle.intersects(otherStar.getRectangle()));
-
-		return biggerRectangle.intersects(otherStar.getRectangle());
-	}
-
-	public Rectangle getRectangle() {
-		return rectangle;
+		g2d.fillOval(hitBox.x - (starDiameter / 2), hitBox.y - (starDiameter / 2), starDiameter, starDiameter);
 	}
 }
