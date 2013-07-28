@@ -24,6 +24,15 @@ import javax.swing.SwingUtilities;
 
 import com.clandaith.freestars.data.Star;
 
+/*
+ *
+ * Copyright Troy Davidson
+ * 
+ * Create by Troy Davidson  troy@clandaith.com
+ * Created on Jul 27, 2013 9:42:04 PM
+ *
+ */
+
 public class Map {
 	private static Hashtable<String, Star> starPlacement = null;
 	private static int searchMultiplier = 1;

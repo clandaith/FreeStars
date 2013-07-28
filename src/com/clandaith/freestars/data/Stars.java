@@ -6,10 +6,10 @@ import java.util.Random;
 
 /*
  *
- * Copyright Maverik.inc 
+ * Copyright Troy Davidson
  * 
- * Create by Troy Davidson  troy.davidson@maverik.com
- * Created on Jul 27, 2013 8:48:09 PM
+ * Create by Troy Davidson  troy@clandaith.com
+ * Created on Jul 27, 2013 9:42:04 PM
  *
  */
 

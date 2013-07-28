@@ -6,10 +6,10 @@ import java.awt.Rectangle;
 
 /*
  *
- * Copyright Maverik.inc 
+ * Copyright Troy Davidson
  * 
- * Create by Troy Davidson  troy.davidson@maverik.com
- * Created on Jul 24, 2013 8:41:44 AM
+ * Create by Troy Davidson  troy@clandaith.com
+ * Created on Jul 27, 2013 9:42:04 PM
  *
  */
 
