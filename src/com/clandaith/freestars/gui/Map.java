@@ -10,7 +10,6 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Random;
@@ -27,15 +26,12 @@ import com.clandaith.freestars.data.Star;
 
 public class Map {
 	private static Hashtable<String, Star> starPlacement = null;
-	private static int starDiameter = 14;
 	private static int searchMultiplier = 1;
 
 	private static JMenuItem klienciMenuItem = new JMenuItem("");
 	private static JPopupMenu menuPopup = new JPopupMenu();
 	private static JTextArea starName = new JTextArea();
 	private static final int GAP = 5;
-
-	private static ArrayList<String> starNames = new ArrayList<String>();
 
 	public static void main(String args[]) throws Exception {
 		// Schedule a job for the event-dispatching thread:
@@ -51,11 +47,8 @@ public class Map {
 		JFrame f = new JFrame("Map");
 		f.setSize(600, 300);
 		f.setLocation(100, 100);
+		f.setPreferredSize(new Dimension(600, 300));
 		f.setResizable(true);
-
-		// JPanel mainPanel = new JPanel();
-		// mainPanel.add(new Map().getMap());
-		// f.add(mainPanel);
 
 		f.add(new Map().getMap());
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,82 +64,63 @@ public class Map {
 			Point pointStart = null;
 			Point pointEnd = null;
 
-			String[] letters = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K" };
 			Random r = new Random();
-
-			private String getStarName() {
-				String name = "";
-				String letter;
-				int a = r.nextInt(10);
-				for (int x = 0; x <= a; x++) {
-
-					letter = letters[r.nextInt(letters.length - 1)];
-					if (r.nextBoolean() == false) {
-						letter = letter.toLowerCase();
-					}
-					name += letter;
-				}
-
-				if (starNames.contains(name)) {
-					name = getStarName();
-				}
-
-				starNames.add(name);
-
-				return name;
-			}
 
 			private void doDrawing(Graphics g) {
 				Graphics2D g2d = (Graphics2D)g;
 
-				g2d.setColor(Color.red);
-
 				Dimension size = getSize();
 				Insets insets = getInsets();
 
-				int w = size.width - (starDiameter * 3) - insets.left - insets.right;
-				int h = size.height - (starDiameter * 3) - insets.top - insets.bottom;
+				int w = size.width - (Star.starDiameter * 3) - insets.left - insets.right;
+				int h = size.height - (Star.starDiameter * 3) - insets.top - insets.bottom;
 
 				Star star;
 
 				if (starPlacement == null) {
 					starPlacement = new Hashtable<String, Star>();
 
-					for (int i = 0; i < 5; i++) {
+					Iterator<Star> starPlacementIter;
+					Star existingStar;
+					int a = 0;
+					do {
 
 						int x = Math.abs(r.nextInt()) % w;
 						int y = Math.abs(r.nextInt()) % h;
 
-						star = new Star();
-						star.setX(x);
-						star.setY(y);
-						star.setName(getStarName());
+						star = new Star(x, y);
 
-						if (i == 3) {
-							star.setMines(true);
-							star.setMineDistance(starDiameter * 3);
-							g2d.setColor(Color.blue);
-							g2d.fillOval(star.getX() - (star.getMineDistance() / 2), star.getY() - (star.getMineDistance() / 2),
-											star.getMineDistance(), star.getMineDistance());
+						boolean placeStar = true;
+						starPlacementIter = starPlacement.values().iterator();
+						while (starPlacementIter.hasNext()) {
+							existingStar = starPlacementIter.next();
+
+							if (existingStar.colidesWithOtherStar(star)) {
+								placeStar = false;
+								continue;
+							}
 						}
 
-						g2d.setColor(Color.red);
+						if (placeStar == false) {
+							continue;
+						}
+
+						if (a == 3) {
+							star.setMines(true);
+							star.setMineDistance(Star.starDiameter * 3);
+						}
+
 						starPlacement.put(star.getPosition(), star);
-						g2d.fillOval(x - (starDiameter / 2), y - (starDiameter / 2), starDiameter, starDiameter);
-					}
+						star.draw(g2d);
+
+						a++;
+					} while (a < 5);
 				} else {
 					Iterator<Star> starPlacementIter = starPlacement.values().iterator();
 					while (starPlacementIter.hasNext()) {
 						star = starPlacementIter.next();
 
-						if (star.hasMines()) {
-							g2d.setColor(Color.blue);
-							g2d.fillOval(star.getX() - (star.getMineDistance() / 2), star.getY() - (star.getMineDistance() / 2),
-											star.getMineDistance(), star.getMineDistance());
-						}
-
-						g2d.setColor(Color.red);
-						g2d.fillOval(star.getX() - (starDiameter / 2), star.getY() - (starDiameter / 2), starDiameter, starDiameter);
+						star.draw(g2d);
 					}
 				}
 			}
@@ -158,7 +132,7 @@ public class Map {
 			}
 
 			boolean leftMouseClick = false;
-			boolean rightMouseClick = false;
+			// boolean rightMouseClick = false;
 
 			{
 				addMouseListener(new MouseAdapter() {
@@ -181,11 +155,11 @@ public class Map {
 
 						if (SwingUtilities.isRightMouseButton(e)) {
 							leftMouseClick = false;
-							rightMouseClick = true;
+							// rightMouseClick = true;
 
 							// System.out.println("Right mouse clicking: " + e.getX() + ":" + e.getY());
 						} else {
-							rightMouseClick = false;
+							// rightMouseClick = false;
 							leftMouseClick = true;
 
 							// System.out.println("mousePressed");
@@ -202,10 +176,10 @@ public class Map {
 					public void mouseReleased(MouseEvent e) {
 						if (SwingUtilities.isRightMouseButton(e)) {
 							leftMouseClick = false;
-							rightMouseClick = true;
+							// rightMouseClick = true;
 						} else {
 							leftMouseClick = false;
-							rightMouseClick = false;
+							// rightMouseClick = false;
 
 							// System.out.println("mouseReleased");
 							pointEnd = e.getPoint();
@@ -268,8 +242,8 @@ public class Map {
 					g.setColor(Color.yellow);
 
 					if (pointStart != null && pointEnd != null) {
-						g.drawLine(pointStart.x - (starDiameter / 2), pointStart.y - (starDiameter / 2), pointEnd.x - (starDiameter / 2),
-										pointEnd.y - (starDiameter / 2));
+						g.drawLine(pointStart.x - (Star.starDiameter / 2), pointStart.y - (Star.starDiameter / 2), pointEnd.x
+										- (Star.starDiameter / 2), pointEnd.y - (Star.starDiameter / 2));
 					}
 				}
 			}
@@ -284,14 +258,14 @@ public class Map {
 				// System.out.println("Start: " + position);
 				boolean found = false;
 
-				for (int a = (x - (starDiameter * searchMultiplier)); a <= x + (starDiameter * searchMultiplier); a++) {
-					for (int b = (y - (starDiameter * searchMultiplier)); b <= y + (starDiameter * searchMultiplier); b++) {
+				for (int a = (x - (Star.starDiameter * searchMultiplier)); a <= x + (Star.starDiameter * searchMultiplier); a++) {
+					for (int b = (y - (Star.starDiameter * searchMultiplier)); b <= y + (Star.starDiameter * searchMultiplier); b++) {
 
 						checkPoint = a + ":" + b;
 
 						if (found == false && starPlacement.containsKey(checkPoint)) {
-							a += (starDiameter / 2);
-							b += (starDiameter / 2);
+							a += (Star.starDiameter / 2);
+							b += (Star.starDiameter / 2);
 							position = a + ":" + b;
 							// System.out.println("Found: " + checkPoint + " (" + position + ")");
 
@@ -308,14 +282,14 @@ public class Map {
 				int x = xD.intValue();
 				int y = yD.intValue();
 
-				String position = x + ":" + y;
+				// String position = x + ":" + y;
 				String checkPoint = "";
 
 				// System.out.println("Start: " + position);
 				boolean found = false;
 
-				for (int a = (x - (starDiameter * searchMultiplier)); a <= x + (starDiameter * searchMultiplier); a++) {
-					for (int b = (y - (starDiameter * searchMultiplier)); b <= y + (starDiameter * searchMultiplier); b++) {
+				for (int a = (x - (Star.starDiameter * searchMultiplier)); a <= x + (Star.starDiameter * searchMultiplier); a++) {
+					for (int b = (y - (Star.starDiameter * searchMultiplier)); b <= y + (Star.starDiameter * searchMultiplier); b++) {
 
 						checkPoint = a + ":" + b;
 

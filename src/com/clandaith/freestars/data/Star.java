@@ -1,5 +1,9 @@
 package com.clandaith.freestars.data;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+
 /*
  *
  * Copyright Maverik.inc 
@@ -10,11 +14,21 @@ package com.clandaith.freestars.data;
  */
 
 public class Star {
+
+	private Rectangle rectangle;
+
+	public static int starDiameter = 14;
+
 	private String name;
-	private Integer x;
-	private Integer y;
 	private boolean mines = false;
 	private Integer mineDistance = 0;
+
+	public Star(int x, int y) {
+
+		rectangle = new Rectangle(x, y, starDiameter, starDiameter);
+
+		this.setName(Stars.getStarName());
+	}
 
 	public boolean hasMines() {
 		return mines;
@@ -41,23 +55,37 @@ public class Star {
 	}
 
 	public Integer getX() {
-		return x;
-	}
-
-	public void setX(Integer x) {
-		this.x = x;
+		return rectangle.x;
 	}
 
 	public Integer getY() {
-		return y;
-	}
-
-	public void setY(Integer y) {
-		this.y = y;
+		return rectangle.y;
 	}
 
 	public String getPosition() {
-		return x + ":" + y;
+		return rectangle.x + ":" + rectangle.y;
 	}
 
+	public void draw(Graphics g2d) {
+		if (this.hasMines()) {
+			g2d.setColor(Color.blue);
+			g2d.fillOval(rectangle.x - (this.getMineDistance() / 2), rectangle.y - (this.getMineDistance() / 2),
+							this.getMineDistance(), this.getMineDistance());
+		}
+
+		g2d.setColor(Color.red);
+		g2d.fillOval(rectangle.x - (starDiameter / 2), rectangle.y - (starDiameter / 2), starDiameter, starDiameter);
+	}
+
+	public boolean colidesWithOtherStar(Star otherStar) {
+		Rectangle biggerRectangle = new Rectangle(rectangle.x - 20, rectangle.y - 20, rectangle.height + 20, rectangle.width + 20);
+
+		System.out.println("Are we coliding: " + biggerRectangle.intersects(otherStar.getRectangle()));
+
+		return biggerRectangle.intersects(otherStar.getRectangle());
+	}
+
+	public Rectangle getRectangle() {
+		return rectangle;
+	}
 }
