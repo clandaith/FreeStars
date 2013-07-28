@@ -113,7 +113,7 @@ public class Map {
 						}
 
 						if (a == 3) {
-							star.setDefensive_Mines(true);
+							star.setMines_Defensive(true);
 							star.setMineDistance(Star.starDiameter * 3);
 						}
 
