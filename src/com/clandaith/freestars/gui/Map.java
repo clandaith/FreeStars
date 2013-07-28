@@ -1,6 +1,5 @@
 package com.clandaith.freestars.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -14,8 +13,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Random;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -42,27 +39,6 @@ public class Map {
 
 	private static JPopupMenu menuPopup = new JPopupMenu();
 	private static JTextArea starName = new JTextArea();
-	private static final int GAP = 5;
-
-	public static void main(String args[]) throws Exception {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGUI();
-			}
-		});
-	}
-
-	private static void createAndShowGUI() {
-		JFrame f = new JFrame("Map");
-		f.setSize(600, 300);
-		f.setLocation(100, 100);
-		f.setPreferredSize(new Dimension(600, 300));
-		f.setResizable(true);
-
-		f.add(new Map().getMap());
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setVisible(true);
-	}
 
 	public JPanel getMap() {
 		klienciMenuItem.setText("In Space");
@@ -302,18 +278,7 @@ public class Map {
 		};
 
 		p.setBackground(Color.black);
-
-		JPanel mainPanel = new JPanel();
 		p.setComponentPopupMenu(menuPopup);
-
-		JPanel info = new JPanel();
-		info.add(starName);
-
-		mainPanel.setLayout(new BorderLayout());
-		mainPanel.setBorder(BorderFactory.createEmptyBorder(GAP, GAP, GAP, GAP));
-		mainPanel.add(info, BorderLayout.WEST);
-		mainPanel.add(p, BorderLayout.CENTER);
-
 		p.setPreferredSize(new Dimension(500, 300));
 
 		return p;
