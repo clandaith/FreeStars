@@ -34,8 +34,6 @@ public class Map {
 	private static final int GAP = 5;
 
 	public static void main(String args[]) throws Exception {
-		// Schedule a job for the event-dispatching thread:
-		// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				createAndShowGUI();
@@ -201,6 +199,7 @@ public class Map {
 						}
 					}
 				});
+
 				addMouseMotionListener(new MouseMotionAdapter() {
 					public void mouseMoved(MouseEvent e) {
 						if (leftMouseClick) {
