@@ -16,7 +16,6 @@ import java.awt.Rectangle;
 public class Star extends MapEntity {
 	public static int starDiameter = 14;
 
-	private String name;
 	private boolean mines = false;
 	private Integer mineDistance = 0;
 
@@ -41,14 +40,6 @@ public class Star extends MapEntity {
 
 	public void setMineDistance(Integer mineDistance) {
 		this.mineDistance = mineDistance;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getPosition() {

@@ -14,6 +14,7 @@ import java.awt.Rectangle;
 public abstract class MapEntity {
 	protected Rectangle hitBox;
 	protected int collisionDistance;
+	public String name;
 
 	public boolean colidesWithOtherObject(Star otherStar, int distanceToCheck) {
 		Rectangle biggerhitBox = new Rectangle(hitBox.x - distanceToCheck, hitBox.y - distanceToCheck, hitBox.height
@@ -39,4 +40,13 @@ public abstract class MapEntity {
 	public Rectangle getHitBox() {
 		return hitBox;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }
