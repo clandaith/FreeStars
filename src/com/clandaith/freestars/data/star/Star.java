@@ -16,10 +16,17 @@ import com.clandaith.freestars.data.MapEntity;
  */
 
 public class Star extends MapEntity {
-	public static int starDiameter = 14;
+	public static final int starDiameter = 14;
 
-	private boolean mines = false;
+	private Boolean defense_mines = false;
 	private Integer mineDistance = 0;
+
+	private Integer barium;
+	private Integer germanium;
+	private Integer blahium;
+
+	private Integer mineral_mines;
+	private Integer factories;
 
 	public Star(int x, int y) {
 		hitBox = new Rectangle(x, y, starDiameter, starDiameter);
@@ -28,12 +35,12 @@ public class Star extends MapEntity {
 		this.setName(Stars.getStarName());
 	}
 
-	public boolean hasMines() {
-		return mines;
+	public boolean hasDefensive_Mines() {
+		return defense_mines;
 	}
 
-	public void setMines(boolean mines) {
-		this.mines = mines;
+	public void setDefensive_Mines(boolean mines) {
+		this.defense_mines = mines;
 	}
 
 	public Integer getMineDistance() {
@@ -49,7 +56,7 @@ public class Star extends MapEntity {
 	}
 
 	public void draw(Graphics g2d) {
-		if (this.hasMines()) {
+		if (this.hasDefensive_Mines()) {
 			g2d.setColor(Color.blue);
 			g2d.fillOval(hitBox.x - (this.getMineDistance() / 2), hitBox.y - (this.getMineDistance() / 2), this.getMineDistance(),
 							this.getMineDistance());
@@ -57,5 +64,45 @@ public class Star extends MapEntity {
 
 		g2d.setColor(Color.red);
 		g2d.fillOval(hitBox.x - (starDiameter / 2), hitBox.y - (starDiameter / 2), starDiameter, starDiameter);
+	}
+
+	public Integer getBarium() {
+		return barium;
+	}
+
+	public void setBarium(Integer barium) {
+		this.barium = barium;
+	}
+
+	public Integer getGermanium() {
+		return germanium;
+	}
+
+	public void setGermanium(Integer germanium) {
+		this.germanium = germanium;
+	}
+
+	public Integer getBlahium() {
+		return blahium;
+	}
+
+	public void setBlahium(Integer blahium) {
+		this.blahium = blahium;
+	}
+
+	public Integer getMineral_mines() {
+		return mineral_mines;
+	}
+
+	public void setMineral_mines(Integer mineral_mines) {
+		this.mineral_mines = mineral_mines;
+	}
+
+	public Integer getFactories() {
+		return factories;
+	}
+
+	public void setFactories(Integer factories) {
+		this.factories = factories;
 	}
 }

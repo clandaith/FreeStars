@@ -38,6 +38,7 @@ public class Map {
 	private static int searchMultiplier = 1;
 
 	private static JMenuItem klienciMenuItem = new JMenuItem("");
+
 	private static JPopupMenu menuPopup = new JPopupMenu();
 	private static JTextArea starName = new JTextArea();
 	private static final int GAP = 5;
@@ -112,7 +113,7 @@ public class Map {
 						}
 
 						if (a == 3) {
-							star.setMines(true);
+							star.setDefensive_Mines(true);
 							star.setMineDistance(Star.starDiameter * 3);
 						}
 
