@@ -20,6 +20,8 @@ import com.clandaith.freestars.data.ship.Ship;
 public class Star extends MapEntity {
 	public static final int starDiameter = 14;
 
+	private boolean highlightStar = false;
+
 	private Boolean mines_defensive = false;
 	private Integer mineDistance = 0;
 
@@ -39,7 +41,11 @@ public class Star extends MapEntity {
 		hitBox = new Rectangle(x, y, starDiameter, starDiameter);
 		this.collisionDistance = 20;
 
-		this.setName(Stars.getStarName());
+		this.setName(StarHelper.getStarName());
+	}
+
+	public void setXY(int x, int y) {
+		hitBox.setLocation(x, y);
 	}
 
 	public boolean hasMines_Defensive() {
@@ -69,8 +75,13 @@ public class Star extends MapEntity {
 							this.getMineDistance());
 		}
 
-		g2d.setColor(Color.red);
+		if (isHighlightStar()) {
+			g2d.setColor(Color.yellow);
+		} else {
+			g2d.setColor(Color.red);
+		}
 		g2d.fillOval(hitBox.x - (starDiameter / 2), hitBox.y - (starDiameter / 2), starDiameter, starDiameter);
+		setHighlightStar(false);
 	}
 
 	public Integer getBarium() {
@@ -151,5 +162,13 @@ public class Star extends MapEntity {
 
 	public void setMines_minerals(Integer mines_minerals) {
 		this.mines_minerals = mines_minerals;
+	}
+
+	public boolean isHighlightStar() {
+		return highlightStar;
+	}
+
+	public void setHighlightStar(boolean highlightStar) {
+		this.highlightStar = highlightStar;
 	}
 }

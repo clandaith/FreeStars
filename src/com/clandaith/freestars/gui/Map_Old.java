@@ -31,7 +31,7 @@ import com.clandaith.freestars.data.star.Star;
  *
  */
 
-public class Map {
+public class Map_Old {
 	private static Hashtable<String, Star> starPlacement = null;
 	private static int searchMultiplier = 1;
 

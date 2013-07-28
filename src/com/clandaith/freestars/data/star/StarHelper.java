@@ -13,7 +13,7 @@ import java.util.Random;
  *
  */
 
-public class Stars {
+public class StarHelper {
 
 	private static ArrayList<String> starNames = new ArrayList<String>();
 
