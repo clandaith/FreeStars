@@ -1,8 +1,10 @@
-package com.clandaith.freestars.data;
+package com.clandaith.freestars.data.star;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import com.clandaith.freestars.data.MapEntity;
 
 /*
  *

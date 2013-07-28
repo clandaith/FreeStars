@@ -22,7 +22,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
-import com.clandaith.freestars.data.Star;
+import com.clandaith.freestars.data.star.Star;
 
 /*
  *

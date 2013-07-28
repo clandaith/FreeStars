@@ -1,4 +1,4 @@
-package com.clandaith.freestars.data;
+package com.clandaith.freestars.data.star;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -2,6 +2,8 @@ package com.clandaith.freestars.data;
 
 import java.awt.Rectangle;
 
+import com.clandaith.freestars.data.star.Star;
+
 /*
  *
  * Copyright Troy Davidson
