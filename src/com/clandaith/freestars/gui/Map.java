@@ -22,6 +22,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
+import com.clandaith.freestars.Utils;
 import com.clandaith.freestars.data.star.Star;
 
 /*
@@ -120,8 +121,11 @@ public class Map {
 						starPlacement.put(star.getPosition(), star);
 						star.draw(g2d);
 
+						System.out.println(Utils.convertObjectToString(star));
+
 						a++;
 					} while (a < 5);
+
 				} else {
 					Iterator<Star> starPlacementIter = starPlacement.values().iterator();
 					while (starPlacementIter.hasNext()) {
