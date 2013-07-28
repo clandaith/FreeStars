@@ -1,11 +1,9 @@
-package com.clandaith.freestars.data;
+package com.clandaith.freestars.data.ship;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import com.clandaith.freestars.data.ship.Engine;
-import com.clandaith.freestars.data.ship.Scanner;
-import com.clandaith.freestars.data.ship.Weapon;
+import com.clandaith.freestars.data.MapEntity;
 
 /*
  *
