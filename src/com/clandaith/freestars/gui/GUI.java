@@ -167,6 +167,7 @@ public class GUI {
 			for (int x = 0; x < 5; x++) {
 				star = new Star(0, 0);
 				starPlacement.put(star.getName(), star);
+				System.out.println("Star count: " + x);
 			}
 		}
 
@@ -416,7 +417,7 @@ public class GUI {
 				}
 			};
 
-			p.setBorder(BorderFactory.createBevelBorder(2));
+			p.setBorder(BorderFactory.createLoweredBevelBorder());
 			p.setBackground(Color.black);
 			p.setComponentPopupMenu(menuPopup);
 			p.setPreferredSize(new Dimension(500, 300));
