@@ -15,6 +15,7 @@ public class FreeStars {
 	public static void main(String[] args) {
 
 		new MainGUI().run();
+		// new GUI().run();
 
 	}
 
