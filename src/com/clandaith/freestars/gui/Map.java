@@ -13,7 +13,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Random;
 
-import javax.swing.BorderFactory;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -36,10 +35,12 @@ public class Map {
 	private JPanel p;
 
 	private JMenuItem klienciMenuItem = new JMenuItem("");
-
 	private JPopupMenu menuPopup = new JPopupMenu();
 
 	private StarInfo starInfo;
+
+	public int width = 1024;
+	public int height = 768;
 
 	public void setStarInfo(StarInfo starInfo) {
 		this.starInfo = starInfo;
@@ -316,11 +317,12 @@ public class Map {
 			}
 		};
 
-		p.setBorder(BorderFactory.createLoweredBevelBorder());
+		// p.setBorder(BorderFactory.createLoweredBevelBorder());
 		p.setBackground(Color.black);
 		p.setComponentPopupMenu(menuPopup);
 		p.setPreferredSize(new Dimension(500, 300));
 
 		return p;
 	}
+
 }

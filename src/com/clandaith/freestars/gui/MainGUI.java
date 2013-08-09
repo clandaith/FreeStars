@@ -1,5 +1,7 @@
 package com.clandaith.freestars.gui;
 
+import java.awt.Dimension;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,11 +23,15 @@ import com.jgoodies.forms.layout.FormLayout;
 public class MainGUI {
 
 	private Map map = new Map();
+	private StarInfo starInfo = new StarInfo(map);
+
+	public final JLabel _labelStarLabel = new JLabel("");
 
 	public void run() {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				map.setStarInfo(starInfo);
 				createAndShowGUI();
 			}
 		});
@@ -67,7 +73,7 @@ public class MainGUI {
 		// JPanel leftPanel = new JPanel();
 
 		FormLayout layout = new FormLayout(
-						"2dlu, pref:grow, 2dlu",
+						"2dlu, 100dlu:grow, 2dlu",
 						"2dlu, fill:pref:grow, 2dlu, fill:pref:grow, 2dlu, fill:pref:grow, 2dlu, fill:pref:grow, 2dlu, fill:pref:grow, 2dlu, fill:pref:grow, 2dlu, fill:pref:grow, 2dlu, fill:pref:grow, 2dlu, fill:pref:grow, 2dlu, fill:pref:grow, 2dlu");
 
 		JLabel _lableTest1 = new JLabel("Test");
@@ -97,25 +103,32 @@ public class MainGUI {
 	private JPanel _rightPanel() {
 		JPanel rightPanel = new JPanel();
 
-		JSplitPane mapSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, _mapPanel(), _mapInfoPanel());
+		// JSplitPane mapSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, _mapPanel(), _mapInfoPanel());
+		JSplitPane mapSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, map.getMap(), _mapInfoPanel());
 		rightPanel.add(mapSplitPane);
 
 		return rightPanel;
 	}
 
-	private JPanel _mapPanel() {
+	private JScrollPane _mapPanel() {
 		JScrollPane mapPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 						ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		mapPane.add(map.getMap());
-		JPanel mapPanel = new JPanel();
-		mapPanel.add(mapPane);
+		// JPanel mapPanel = new JPanel();
+		// mapPanel.add(mapPane);
+		// mapPanel.add(map.getMap());
 
-		return mapPanel;
+		mapPane.setPreferredSize(new Dimension(map.width, map.height));
+
+		return mapPane;
 	}
 
 	private JPanel _mapInfoPanel() {
 		JPanel mapInfoPanel = new JPanel();
+
+		mapInfoPanel.add(_labelStarLabel);
+		_labelStarLabel.setText("Star Info");
 
 		return mapInfoPanel;
 	}
