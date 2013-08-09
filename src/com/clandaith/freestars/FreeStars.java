@@ -1,6 +1,6 @@
 package com.clandaith.freestars;
 
-import com.clandaith.freestars.gui.GUI;
+import com.clandaith.freestars.gui.MainGUI;
 
 /*
  *
@@ -14,7 +14,7 @@ import com.clandaith.freestars.gui.GUI;
 public class FreeStars {
 	public static void main(String[] args) {
 
-		new GUI().run();
+		new MainGUI().run();
 
 	}
 
